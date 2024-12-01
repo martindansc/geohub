@@ -25,15 +25,7 @@ const Home: NextPage = () => {
           priority
         />
         <div className="hero-content">
-          <h2 className="banner-title">Today&apos;s Tip</h2>
-          <div className="tip-wrapper">
-            <span className="tip">{geoTip.tip}</span>
-          </div>
-          <div className="pills-wrapper">
-            {geoTip.tags.map((label, idx) => (
-              <Pill key={idx} label={label} />
-            ))}
-          </div>
+          <h2 className="banner-title">GeoHub modified by Elk</h2>
         </div>
       </div>
 
@@ -45,13 +37,13 @@ const Home: NextPage = () => {
         </div>
 
         <div className="other-gamemodes">
-          <GamemodeCard
+          {/* <GamemodeCard
             title={COUNTRY_STREAK_DETAILS.name}
             titleColor="var(--blue-500)"
             description={COUNTRY_STREAK_DETAILS.description}
             buttonText="Play Streaks"
             href="/streaks"
-          />
+          /> */}
 
           <GamemodeCard
             title={DAILY_CHALLENGE_DETAILS.name}
