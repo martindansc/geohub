@@ -29,6 +29,7 @@ const CreateMapPage: PageType = () => {
   const mapId = router.query.mapId as string
 
   const [locations, setLocations] = useState<LocationType[]>([])
+  const [extraRandomLocations, setExtraRandomLocations] = useState(0)
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(null)
   const [haveLocationsChanged, setHaveLocationsChanged] = useState(false)
   const [initiallyPublished, setInitiallyPublished] = useState<boolean | null>(null)
@@ -203,6 +204,11 @@ const CreateMapPage: PageType = () => {
   //   setModifiedPanoId(panoId)
   // }
 
+  const handleChangeRandomLocations = (value: string) => {
+    setExtraRandomLocations(Number(value));
+    setHaveLocationsChanged(true)
+  }
+
   const handleUpdateLocation = () => {
     if (!selectedLocation) return
 
@@ -308,15 +314,15 @@ const CreateMapPage: PageType = () => {
 
             <div className="menu-group">
               {googleMapsConfig && <SelectMapLayers selectionMap={googleMapsConfig.map} />}
+              <input type="number" defaultValue="0" onChange={(e) => handleChangeRandomLocations(e.target.value)} />
             </div>
           </Allotment.Pane>
 
           <Allotment.Pane className="allotment-item">
             <div className="menu-group">
               {!isLoading ? (
-                <span className="locations-count">{`${formatLargeNumber(locations.length)} location${
-                  locations.length !== 1 ? 's' : ''
-                }`}</span>
+                <span className="locations-count">{`${formatLargeNumber(locations.length)} location${locations.length !== 1 ? 's' : ''
+                  }`}</span>
               ) : (
                 <Skeleton height={20} width={100} />
               )}
@@ -385,6 +391,7 @@ const CreateMapPage: PageType = () => {
           isOpen={saveModalOpen}
           closeModal={() => setSaveModalOpen(false)}
           locations={locations}
+          extraRandomLocations={extraRandomLocations}
           setLastSave={setLastSave}
           initiallyPublished={initiallyPublished}
           setInitiallyPublished={setInitiallyPublished}

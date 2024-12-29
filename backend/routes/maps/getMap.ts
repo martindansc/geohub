@@ -15,6 +15,8 @@ const getMap = async (req: NextApiRequest, res: NextApiResponse) => {
   // Get Map Details
   let mapDetails = await collections.maps?.findOne({ _id: new ObjectId(mapId) })
 
+  console.log(mapDetails);
+
   if (!mapDetails) {
     return throwError(res, 404, `Failed to find map with id: ${mapId}`)
   }

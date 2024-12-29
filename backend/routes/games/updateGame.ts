@@ -13,6 +13,7 @@ import {
 } from '@backend/utils'
 import { ChallengeType, DistanceType, GuessType } from '@types'
 import { getRealCountryCode } from '@utils/helpers/getRealCountryCode'
+import { updateScores } from '@backend/queries/updateScores'
 
 const updateGame = async (req: NextApiRequest, res: NextApiResponse) => {
   const gameId = req.query.id as string
@@ -156,18 +157,7 @@ const updateGame = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (isGameFinished) {
-    const host = req.headers.host
-    const protocol = req.headers['x-forwarded-proto'] || 'http'
-    const baseUrl = `${protocol}://${host}`
-
-    fetch(`${baseUrl}/api/scores/update`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: process.env.INTERNAL_API_SECRET ?? '',
-      },
-      body: JSON.stringify({ game }),
-    })
+    updateScores(game);
   }
 
   res.status(200).send({ game, mapDetails })

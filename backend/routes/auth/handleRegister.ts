@@ -7,6 +7,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const handleRegister = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, email, password } = registerUserSchema.parse(req.body)
 
+  let splitEmail = email.split("@");
+  if (splitEmail.length != 2 || splitEmail[1] != process.env.REGISTER_EMAIL_DOMAIN) {
+    return throwError(res, 400, 'Register disabled');
+  }
+
   const findUserWithEmail = await collections.users?.findOne({ email: email })
 
   if (findUserWithEmail) {

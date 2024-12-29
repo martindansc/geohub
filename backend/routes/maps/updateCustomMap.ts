@@ -4,6 +4,8 @@ import { calculateMapScoreFactor, collections, getMapBounds, getUserId, throwErr
 import { LocationType } from '@types'
 import { MAX_ALLOWED_CUSTOM_LOCATIONS } from '@utils/constants/random'
 import { formatLargeNumber } from '@utils/helpers'
+import https from 'https'
+import getRequest from '@backend/utils/request'
 
 type ReqBody = {
   name?: string
@@ -11,6 +13,7 @@ type ReqBody = {
   previewImg?: string
   isPublished?: boolean
   locations?: LocationType[]
+  extraRandomLocations?: number
 }
 
 type UpdatedMap = {
@@ -42,7 +45,7 @@ const updateCustomMap = async (req: NextApiRequest, res: NextApiResponse) => {
 
   let updatedMap: UpdatedMap = {}
 
-  const { name, description, previewImg, isPublished, locations } = req.body as ReqBody
+  const { name, description, previewImg, isPublished, locations, extraRandomLocations } = req.body as ReqBody
 
   if (name) {
     updatedMap['name'] = name
@@ -54,6 +57,26 @@ const updateCustomMap = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (previewImg) {
     updatedMap['previewImg'] = previewImg
+  }
+
+  if (extraRandomLocations) {
+    for (let i = 0; i < extraRandomLocations;) {
+      let response = await getRequest("https://randomstreetview.com/") as string;
+      let myregexp = /^.*randomLocations.all = .*$/mg;
+      let match = myregexp.exec(response);
+      if (match) {
+        let extraLocationsHtml = match[0].replace('randomLocations.all = ', '').slice(0, -1);
+        console.log(extraLocationsHtml);
+        let extraLocationsParsed = JSON.parse(extraLocationsHtml);
+        for (let location of extraLocationsParsed) {
+          locations?.push({ lat: Number(location.lat), lng: Number(location.lng) });
+          i++;
+          if (i >= extraRandomLocations) {
+            break;
+          }
+        }
+      }
+    }
   }
 
   if (locations && locations.length < 5) {
