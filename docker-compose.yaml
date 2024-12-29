@@ -10,6 +10,17 @@ services:
       - .env:/usr/src/app/.env
     ports:
       - "3000:3000"
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "0 0 4 * * *"
+      ofelia.job-exec.datecron.command: "bash /usr/src/app/cron.sh"
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - nginx
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   mongo:
     image: mongo
     restart: always

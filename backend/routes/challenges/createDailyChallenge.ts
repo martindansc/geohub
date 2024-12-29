@@ -30,7 +30,7 @@ const createDailyChallenge = async (req: NextApiRequest, res: NextApiResponse) =
     }
   }
 
-  const locations = await getLocations(OFFICIAL_WORLD_ID)
+  const locations = await getLocations(OFFICIAL_WORLD_ID, 3)
 
   const newDailyChallenge = {
     mapId: new ObjectId(OFFICIAL_WORLD_ID),
@@ -39,7 +39,7 @@ const createDailyChallenge = async (req: NextApiRequest, res: NextApiResponse) =
     mode: 'standard',
     gameSettings: {
       timeLimit: 180,
-      canMove: true,
+      canMove: false,
       canPan: true,
       canZoom: true,
     },

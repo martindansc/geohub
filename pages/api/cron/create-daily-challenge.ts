@@ -7,9 +7,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const authHeader = req.headers.authorization
 
-    if (!authHeader || authHeader !== process.env.CRON_SECRET) {
+    /* if (!authHeader || authHeader !== process.env.CRON_SECRET) {
       return throwError(res, 401, 'Unauthorized')
-    }
+    } */
+
+    console.log("Creating daily challange");
 
     await dbConnect()
 
