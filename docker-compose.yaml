@@ -13,7 +13,7 @@ services:
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.datecron.schedule: "0 0 4 * * *"
-      ofelia.job-exec.datecron.command: "bash /usr/src/app/cron.sh"
+      ofelia.job-exec.datecron.command: "wget http://127.0.0.1:3000/api/cron/create-daily-challenge"
   ofelia:
     image: mcuadros/ofelia:latest
     depends_on:
