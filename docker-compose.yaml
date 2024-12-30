@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   geohub:
-    image: ghcr.io/benlikescode/geohub:main
+    build: .
     restart: unless-stopped
     labels:
       caddy: geo.elkis.org
