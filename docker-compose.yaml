@@ -6,6 +6,9 @@ services:
     labels:
       caddy: geo.elkis.org
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "0 0 4 * * *"
+      ofelia.job-exec.datecron.command: "wget http://127.0.0.1:3000/api/cron/create-daily-challenge"
     networks:
       - caddy
     env_file:
@@ -15,14 +18,10 @@ services:
     volumes:
       - ./:/usr/src/app
       - .env:/usr/src/app/.env
-    command: "-f /dev/null"
-    entrypoint: /usr/bin/tail
-    tty: true
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-exec.datecron.schedule: "0 0 4 * * *"
-      ofelia.job-exec.datecron.command: "wget http://127.0.0.1:3000/api/cron/create-daily-challenge"
-  
+    # command: "-f /dev/null"
+    # entrypoint: /usr/bin/tail
+    # tty: true
+
   ofelia:
     image: mcuadros/ofelia:latest
     command: daemon --docker
