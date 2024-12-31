@@ -41,7 +41,7 @@ const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, ro
   }
 
   const handleNextRound = () => {
-    if (round >= rounds) {
+    if (round > rounds) {
       setView('FinalResults')
     } else {
       // Store start time
@@ -78,7 +78,7 @@ const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, ro
 
       <div className="actionButton">
         <button className="next-round-btn" onClick={() => handleNextRound()}>
-          {round >= rounds ? 'View Results' : 'Next Round'}
+          {round > rounds ? 'View Results' : 'Next Round'}
         </button>
       </div>
     </StyledStandardResults>

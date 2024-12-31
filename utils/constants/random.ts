@@ -1,4 +1,4 @@
-export const OFFICIAL_WORLD_ID = '674b9711ccbfe45176f9f8ee'
+export const OFFICIAL_WORLD_ID = '67732b9e4094dd36ce5a5b21'
 export const COUNTRY_STREAKS_ID = 'country-streaks'
 export const DAILY_CHALLENGE_ID = 'daily-challenge'
 
@@ -23,4 +23,4 @@ export const USER_AVATAR_PATH = '/images/userAvatars'
 
 export const MAX_ALLOWED_CUSTOM_LOCATIONS = 60000
 
-export const SUPPORT_EMAIL = 'geohub.game@gmail.com'
+export const SUPPORT_EMAIL = ''
