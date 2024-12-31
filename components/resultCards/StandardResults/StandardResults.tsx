@@ -14,10 +14,11 @@ type Props = {
   points: number
   noGuess?: boolean
   view: GameViewType
+  rounds: number,
   setView: (view: GameViewType) => void
 }
 
-const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, setView }) => {
+const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, rounds, setView }) => {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.user)
 
@@ -40,7 +41,7 @@ const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, se
   }
 
   const handleNextRound = () => {
-    if (round > 5) {
+    if (round >= rounds) {
       setView('FinalResults')
     } else {
       // Store start time
@@ -77,7 +78,7 @@ const StandardResults: FC<Props> = ({ round, distance, points, noGuess, view, se
 
       <div className="actionButton">
         <button className="next-round-btn" onClick={() => handleNextRound()}>
-          {round > 5 ? 'View Results' : 'Next Round'}
+          {round >= rounds ? 'View Results' : 'Next Round'}
         </button>
       </div>
     </StyledStandardResults>

@@ -44,6 +44,7 @@ const StandardGameView: FC<Props> = ({ gameData, setGameData, view, setView }) =
                 !gameData.guesses[gameData.guesses.length - 1].timedOutWithGuess
               }
               view={view}
+              rounds={gameData.rounds.length}
               setView={setView}
             />
           )}

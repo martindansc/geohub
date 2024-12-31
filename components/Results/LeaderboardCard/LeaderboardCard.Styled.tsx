@@ -98,7 +98,7 @@ const StyledLeaderboardCard = styled.div`
 
     .leaderboardHeaderRow {
       display: grid;
-      grid-template-columns: 250px repeat(6, 1fr);
+      grid-template-columns: 250px repeat(calc(var(--n-columns, 6)), 1fr);
 
       @media (max-width: 800px) {
         grid-template-columns: 1fr 90px;
@@ -107,7 +107,7 @@ const StyledLeaderboardCard = styled.div`
 
     .leaderboardRow {
       display: grid;
-      grid-template-columns: 250px repeat(6, 1fr);
+      grid-template-columns: 250px repeat(calc(var(--n-columns, 6)), 1fr);
       border-top: 1px solid #2f3133;
       cursor: pointer;
       padding: 6px 0;

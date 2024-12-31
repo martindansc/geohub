@@ -48,25 +48,15 @@ const LeaderboardCard: FC<Props> = ({ gameData, mapData, selectedGameIndex, setS
         </div>
 
         <div className="leaderboardSection">
-          <div className="leaderboardHeaderRow">
+          <div className="leaderboardHeaderRow" style={{ "--n-columns": gameData[0].guesses.length + 1 }}>
             <div className="titleSection">
               <span>LEADERBOARD</span>
             </div>
-            <div className="titleSection hideOnSmall">
-              <span>Round 1</span>
-            </div>
-            <div className="titleSection hideOnSmall">
-              <span>Round 2</span>
-            </div>
-            <div className="titleSection hideOnSmall">
-              <span>Round 3</span>
-            </div>
-            <div className="titleSection hideOnSmall">
-              <span>Round 4</span>
-            </div>
-            <div className="titleSection hideOnSmall">
-              <span>Round 5</span>
-            </div>
+            {gameData[0].guesses.map((guess, guessIdx) => (
+              <div key={guessIdx} className="titleSection hideOnSmall">
+                <span>Round {guessIdx + 1}</span>
+              </div>
+            ))}
             <div className="titleSection">
               <span>Total</span>
             </div>
@@ -75,6 +65,7 @@ const LeaderboardCard: FC<Props> = ({ gameData, mapData, selectedGameIndex, setS
           {gameData.map((game, gameIdx) => (
             <div
               key={gameIdx}
+              style={{ "--n-columns": gameData[0].guesses.length + 1 }}
               className={`leaderboardRow ${selectedGameIndex === gameIdx ? 'selected' : ''}`}
               onClick={() => setSelectedGameIndex && setSelectedGameIndex(gameIdx)}
             >

@@ -48,7 +48,7 @@ const GameStatus: FC<Props> = ({ gameData, handleSubmitGuess, hasCustomRoundLeng
               <span>Round</span>
             </div>
             <div className="value">
-              <span>{`${gameData.round} / ${hasCustomRoundLength ? gameData.rounds.length : 5}`}</span>
+              <span>{`${gameData.round} / ${gameData.rounds.length}`}</span>
             </div>
           </div>
 
