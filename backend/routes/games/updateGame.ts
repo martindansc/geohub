@@ -52,7 +52,7 @@ const updateGame = async (req: NextApiRequest, res: NextApiResponse) => {
   let isGameFinished = false
 
   if (game.mode === 'standard') {
-    isGameFinished = game.round === 5
+    isGameFinished = game.rounds.length === localRound
   }
 
   if (game.mode === 'streak') {

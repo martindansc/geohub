@@ -18,9 +18,9 @@ services:
     volumes:
       - ./:/usr/src/app
       - .env:/usr/src/app/.env
-    # command: "-f /dev/null"
-    # entrypoint: /usr/bin/tail
-    # tty: true
+    command: "-f /dev/null"
+    entrypoint: /usr/bin/tail
+    tty: true
 
   ofelia:
     image: mcuadros/ofelia:latest
@@ -32,6 +32,8 @@ services:
   mongo:
     image: mongo
     restart: unless-stopped
+    ports:
+      - 27017:27017
     networks:
       - caddy
     env_file:
